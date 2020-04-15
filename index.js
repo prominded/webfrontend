@@ -1,7 +1,6 @@
 import covid19ImpactEstimator, 
 {impactEstimatorOutput, regionData, populationData,
-  hospitalBedsData, normalizeDays } 
-  from './estimator';  
+  hospitalBedsData, normalizeDays } from './estimator';
 
 function processForm(e) {
   e.preventDefault();

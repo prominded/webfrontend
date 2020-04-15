@@ -47,7 +47,7 @@ const impactEstimatorOutput = (data) => ({
 }
 });
 
-export { impactEstimatorOutput, regionData, populationData, hospitalBedsData, normalizeDays };
+export { impactEstimatorOutput, regionData, populationData, hospitalBedsData, normalizeDays }
 
 const covid19ImpactEstimator = (data) => data;
 
