@@ -30,12 +30,12 @@ function normalizeDays(periodType, value) {
 }
 
 const impactEstimatorOutput = (data) => ({
-  inputeData: data,
+  inputData: data,
   impact: {
     currentlyInfected: data.reportedCases * 10,
     infectionsByRequestedTime: data.reportedCases * 10 * (2 ** (data.timeToElapse / 3)),
     severeCasesByRequestedTime: data.reportedCases * 10 * (2 ** (data.timeToElapse / 3)) * 0.15,
-    hospitalBedsByRequestedTime: data.totalHospitalBeds * 0.35,
+    hospitalBedsByRequestedTime: Math.round(data.totalHospitalBeds * 0.35) - data.reportedCases * 10 * (2 ** (data.timeToElapse / 3)) * 0.15,
     casesForICUByRequestedTime: data.reportedCases * 10 * (2 ** (data.timeToElapse / 3)) * 0.05,
     casesForVentilatorsByRequestedTime: data.reportedCases * 10 * (2 ** (data.timeToElapse / 3)) * 0.02,
     dollarsInFlight: data.reportedCases * 10 * (2 ** (data.timeToElapse / 3)) * data.region.avgDailyIncomePopulation * data.region.avgDailyIncomeInUSD * data.timeToElapse
@@ -44,7 +44,7 @@ const impactEstimatorOutput = (data) => ({
     currentlyInfected: data.reportedCases * 50,
     infectionsByRequestedTime: data.reportedCases * 50 * (2 ** (data.timeToElapse / 3)),
     severeCasesByRequestedTime: data.reportedCases * 50 * (2 ** (data.timeToElapse / 3)) * 0.15,
-    hospitalBedsByRequestedTime: data.totalHospitalBeds * 0.35,
+    hospitalBedsByRequestedTime: Math.round(data.totalHospitalBeds * 0.35) - data.reportedCases * 50 * (2 ** (data.timeToElapse / 3)) * 0.15,
     casesForICUByRequestedTime: data.reportedCases * 50 * (2 ** (data.timeToElapse / 3)) * 0.05,
     casesForVentilatorsByRequestedTime: data.reportedCases * 50 * (2 ** (data.timeToElapse / 3)) * 0.02,
     dollarsInFlight: data.reportedCases * 50 * (2 ** (data.timeToElapse / 3)) * data.region.avgDailyIncomePopulation * data.region.avgDailyIncomeInUSD * data.timeToElapse

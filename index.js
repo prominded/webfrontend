@@ -16,12 +16,7 @@ import covid19ImpactEstimator,
 
 function processForm(e) {
   e.preventDefault();
-  console.log("impact Object...beginining.");
-  console.log(document.getElementById('reportedCases').value);
-  console.log(document.getElementById('population').value);
-  alert(document.getElementById('population').value);
-
-
+  alert("CHECK BROWSER'S DEV TOOLS FOR IMPACT ESTIMATES");
   const formData = {
     pType: "Days",
     tElapse: normalizeDays(document.getElementById('periodType').value, document.getElementById('timeToElapse').value),
@@ -30,8 +25,8 @@ function processForm(e) {
     tBeds: document.getElementById('totalHospitalBeds').value
 };
 
-
-  console.log(regionData);
+  console.log("\n");
+  console.log("Processing user input....");
   
 
 const data = covid19ImpactEstimator({
@@ -42,25 +37,63 @@ const data = covid19ImpactEstimator({
     population: formData.pop, 
     totalHospitalBeds: formData.tBeds 
  });
-  console.log(data.reportedCases);
-  console.log(data.region.name);
 
 
-  console.log(`impact Object... ${data.reportedCases}`);
+  console.log(`Region: ${data.region.name}`);
+  console.log(`Average Age: ${data.region.avgAge}`);
+  console.log(`Average Daily Income in USD: ${data.region.avgDailyIncomeInUSD}`);
+  console.log(`Average Daily Income Population: ${data.region.avgDailyIncomePopulation}`);
+
 
   const result = impactEstimatorOutput(data);
-  console.log(result);
+  console.log("------------------------------------------------------------------");
+  console.log(`*******************REPORTED CASES: (${result.inputData.reportedCases})***********************`);
+  console.log("------------------------------------------------------------------");
+
+  console.log(` Impact-> Currently Infected: ${result.impact.currentlyInfected}`);
+  console.log(` Severe Impact-> Currently Infected: ${result.severeImpact.currentlyInfected}`);
+  console.log("\n");
+
+  console.log("------------------------------------------------------------------");
+  console.log(`*******************(${result.inputData.timeToElapse} Days from Now)***********************`);
+  console.log("------------------------------------------------------------------");
+  console.log(` Impact-> Infections could rise to: ${result.impact.infectionsByRequestedTime}`);
+  console.log(` Severe Impact-> Infections could rise to: ${result.severeImpact.infectionsByRequestedTime}`);
+
+  console.log("------------------------------------------------------------------");
+  console.log(`*******************Cases that will require hospitalization in (${result.inputData.timeToElapse} days time)***********************`);
+  console.log("------------------------------------------------------------------");
+  console.log(` Impact-> (${result.impact.severeCasesByRequestedTime}) severe positive cases will require Hostitalization`);
+  console.log(` Severe Impact-> (${result.severeImpact.severeCasesByRequestedTime}) severe possitive cases which will require Hostitalization in (${result.inputData.timeToElapse} days time`);
+
+
+  console.log("----------------------------------------------------------------------------");
+  console.log(`******Total Number of Hospital Beds/Available Beds: (${result.inputData.totalHospitalBeds})/(${Math.round(result.inputData.totalHospitalBeds * 0.35)})********`);
+  console.log("----------------------------------------------------------------------------");
+  console.log(` Impact-> (${Math.abs(result.impact.hospitalBedsByRequestedTime)}) Beds will be in short supply for Hopitalization in ${result.inputData.timeToElapse} days time`);
+  console.log(` Severe Impact->  (${Math.abs(result.severeImpact.hospitalBedsByRequestedTime)}) Beds will be in short supply for Hopitalization in ${result.inputData.timeToElapse} days time`);
+
+  console.log("----------------------------------------------------------------------------");
+  console.log(`******Total Number that require ICU care in ${result.inputData.timeToElapse} days time********`);
+  console.log("----------------------------------------------------------------------------");
+  console.log(` Impact-> (${result.impact.casesForICUByRequestedTime}) would require ICU care`);
+  console.log(` Severe Impact->(${result.severeImpact.casesForICUByRequestedTime}) would require ICU care`);
+
+  console.log("----------------------------------------------------------------------------");
+  console.log(`******The economic loss in the next ${result.inputData.timeToElapse} days:********`);
+  console.log("----------------------------------------------------------------------------");
+  console.log(` Impact-> ${result.impact.dollarsInFlight}`);
+  console.log(` Severe Impact->  ${result.severeImpact.dollarsInFlight}`);
 }
 
-document.addEventListener('DOMContentLoaded', (event) => {
-  console.log("My Form Object");
-  
+  document.addEventListener('DOMContentLoaded', (event) => {
   document.getElementById('population').value = populationData.getDefaultPopulation();
   document.getElementById('totalHospitalBeds').value = hospitalBedsData.getDefaultBeds();
 });
 
+console.log("covid-19 Impact Estimator <loading...>");
+
 const impButton = document.getElementById('impactButton');
-console.log(impButton);
 impButton.addEventListener('click', (e) => processForm(e));
 
 
