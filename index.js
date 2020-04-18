@@ -1,35 +1,67 @@
+/* eslint-disable no-alert */
+/* eslint-disable no-console */
+/* eslint-disable no-multiple-empty-lines */
+/* eslint-disable indent */
+/* eslint-disable no-trailing-spaces */
+/* eslint-disable no-unused-vars */
+/* eslint linebreak-style: ["error","windows"] */
+/* eslint-disable quotes */
+
 import covid19ImpactEstimator, 
-{impactEstimatorOutput, regionData, populationData,
-  hospitalBedsData, normalizeDays } from './estimator';
+{
+ impactEstimatorOutput, regionData, populationData,
+  hospitalBedsData, normalizeDays 
+// eslint-disable-next-line import/extensions
+} from './estimator.js';
 
 function processForm(e) {
   e.preventDefault();
-  const data = {
+  console.log("impact Object...beginining.");
+  console.log(document.getElementById('reportedCases').value);
+  console.log(document.getElementById('population').value);
+  alert(document.getElementById('population').value);
+
+
+  const formData = {
     pType: "Days",
-    tElapse: normalizeDays(document.getElementById('periodType'),document.getElementById('timeToElapse')),
-    rCases: document.getElementById('reportedCases'),
-    pop: document.getElementById('population'),
-    tBeds: document.getElementById('totalHospitalBeds')
-}
+    tElapse: normalizeDays(document.getElementById('periodType').value, document.getElementById('timeToElapse').value),
+    rCases: document.getElementById('reportedCases').value,
+    pop: document.getElementById('population').value,
+    tBeds: document.getElementById('totalHospitalBeds').value
+};
 
- const imputData = covid19ImpactEstimator({
-    region: regionData, 
-    periodType: data.pType,
-    timeToElapse: data.tElapse, 
-    reportedCases: data.rCases,
-    population: data.pop, 
-    totalHospitalBeds: data.tBeds 
- });
 
- const outputData = impactEstimatorOutput(imputData);
+  console.log(regionData);
   
+
+const data = covid19ImpactEstimator({
+    region: regionData, 
+    periodType: formData.pType,
+    timeToElapse: formData.tElapse, 
+    reportedCases: formData.rCases,
+    population: formData.pop, 
+    totalHospitalBeds: formData.tBeds 
+ });
+  console.log(data.reportedCases);
+  console.log(data.region.name);
+
+
+  console.log(`impact Object... ${data.reportedCases}`);
+
+  const result = impactEstimatorOutput(data);
+  console.log(result);
 }
 
-document.addEventListener('DOMContentLoaded', (e) => {
- const impForm = document.getElementById('impactForm');
+document.addEventListener('DOMContentLoaded', (event) => {
+  console.log("My Form Object");
+  
   document.getElementById('population').value = populationData.getDefaultPopulation();
   document.getElementById('totalHospitalBeds').value = hospitalBedsData.getDefaultBeds();
-  impForm.addEventListener('submit', processForm(e));
 });
+
+const impButton = document.getElementById('impactButton');
+console.log(impButton);
+impButton.addEventListener('click', (e) => processForm(e));
+
 
 
