@@ -16,7 +16,7 @@ import covid19ImpactEstimator,
 
 function processForm(e) {
   e.preventDefault();
-  alert("CHECK BROWSER'S DEV TOOLS FOR IMPACT ESTIMATES");
+  alert("CHECK BROWSER'S DEV TOOL FOR IMPACT ESTIMATES");
   const formData = {
     pType: "Days",
     tElapse: normalizeDays(document.getElementById('periodType').value, document.getElementById('timeToElapse').value),

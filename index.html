@@ -5,50 +5,92 @@
     <title>Covid-19 Impact Assessment Estimator</title>
     <style type="text/css">
     div{padding: 3px;}
+    .row{ 
+        display:flex
+        }
+    .col-6{ 
+          width:50%;
+          display: block
+          }
+   
+    .col{ 
+      width:50%
+
+         }
     </style>
     
     <script type="module" src="index.js"></script>
 </head>
 <body>
-    <h1>Covid-19 Estimator Form</h1>
-    <p>Please enter your imput</p>
-    <form>
-        <div>
-            <label for="Period Type">
-            Period Type:
-                    </label>
-
-            <select name="periodType" id="periodType" data-period-type>
-                <option value="Days">Days</option>
-                <option value="Weeks">Weeks</option>
-                <option value="Months">Months</option>
-        
-            </select>
+    <div class="container">
+        <div class="row">
+        <div class="col-6">
+                <h1>Covid-19 Estimator Form</h1>
+                <p>Please enter your imput</p>
+                <form>
+                    <div class="row">
+                        <div class="col">
+                            <label for="Period Type">
+                                Period Type:
+                            </label>
+                        </div>
+                        <div class="col">
+                            <select name="periodType" id="periodType" data-period-type>
+                                <option value="Days">Days</option>
+                                <option value="Weeks">Weeks</option>
+                                <option value="Months">Months</option>
+                
+                            </select>
+                        </div>
+                
+                    </div>
+                
+                    <div class="row">
+                        <div class="col">
+                            <label for="Time To Elapse">
+                                Time To Elapse:</label>
+                        </div>
+                        <div class="col">
+                            <input type="text" name="timeToElapse" id="timeToElapse" data-time-to-elapse>
+                        </div>
+                
+                    </div>
+                
+                    <div class="row">
+                        <div class="col"><label for="Reported Cases">
+                                Reported Cases:</label></div>
+                        <div class="col"><input type="text" name="reportedCases" id="reportedCases" data-reported-cases>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col"><label for="Population">
+                                Population:</label>
+                        </div>
+                        <div class="col">
+                            <input type="text" name="population" id="population" data-population>
+                        </div>
+                
+                    </div>
+                
+                    <div class="row">
+                        <div class="col"><label for="Total Hospital Beds">
+                                Reported Cases:</label>
+                        </div>
+                        <div class="col">
+                            <input type="text" name="totalHospitalBeds" id="totalHospitalBeds" data-total-hospital-beds>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col"></div>
+                        <div class="col" >
+                            <button type="button" id="impactButton" name="impactButton" data-go-estimate>Estimate Impact</button>
+                        </div>
+                    </div>
+                </form>
+        </div>
+        <div clas="col-6"></div>
+        </div>
     </div>
-        
-<div><label for="Time To Elapse">
-    Time To Elapse:</label>
 
-    <input type="text" name="timeToElapse" id="timeToElapse" data-time-to-elapse>
-</div>
-<div>
-    <label for="Reported Cases">
-    Reported Cases:</label>
-    <input type="text" name="reportedCases" id="reportedCases" data-reported-cases>
-</div>
-        <div><label for="Population">
-            Population:</label>
-            <input type="text" name="population" id="population" data-population>
-       
-    </div>
-           
-           <div><label for="Total Hospital Beds">
-            Reported Cases:</label>
-            <input type="text" name="totalHospitalBeds" id="totalHospitalBeds" data-total-hospital-beds>
-        </div> 
-          <div>
-            <button type="button" id="impactButton" name="impactButton" data-go-estimate>Estimate Impact</button>
-            </div>
-    </form>
 </body>
 </html>
