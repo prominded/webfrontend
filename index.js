@@ -14,9 +14,20 @@ import covid19ImpactEstimator,
 // eslint-disable-next-line import/extensions
 } from './estimator.js';
 
+function printMessage(output) {
+  const HTML = `<div class="row row-header"><div class="row-header-cell">Metrics</div><div class="row-header-cell">Impact</div><div class="row-header-cell">Severe Impact</div></div>
+  <div class="row table-row"><div class="row-cell metrics">Currently Infected</div><div class="row-cell">${output.impact.currentlyInfected}</div><div class="row-cell">${output.severeImpact.currentlyInfected}</div></div>
+   <div class="row table-row lighter-black"><div class="row-cell metrics">Infections by requested time (In ${output.inputData.timeToElapse} days )</div><div class="row-cell">${output.impact.infectionsByRequestedTime}</div><div class="row-cell">${output.severeImpact.infectionsByRequestedTime}</div></div>
+    <div class="row table-row"><div class="row-cell metrics">Severe cases by requested time (In ${output.inputData.timeToElapse} days)</div><div class="row-cell">${output.impact.severeCasesByRequestedTime}</div><div class="row-cell">${output.severeImpact.severeCasesByRequestedTime}</div></div>
+     <div class="row table-row lighter-black"><div class="row-cell metrics">Exces/shortages of Hospital Beds (In ${output.inputData.timeToElapse} days)</div><div class="row-cell">${output.impact.hospitalBedsByRequestedTime}</div><div class="row-cell">${output.severeImpact.hospitalBedsByRequestedTime}</div></div>
+      <div class="row table-row"><div class="row-cell metrics">Cases for ICU by requeted time (In ${output.inputData.timeToElapse} days)</div><div class="row-cell">${output.impact.casesForICUByRequestedTime}</div><div class="row-cell">${output.severeImpact.casesForICUByRequestedTime}}</div></div>
+       <div class="row table-row lighter-black"><div class="row-cell metrics">Dollars in flight (In ${output.inputData.timeToElapse} days)</div><div class="row-cell">${output.impact.dollarsInFlight}</div><div class="row-cell">${output.severeImpact.dollarsInFlight}</div></div>`;
+  document.getElementById("message").innerHTML = HTML;
+}
+
 function processForm(e) {
   e.preventDefault();
-  alert("CHECK BROWSER'S DEV TOOL FOR IMPACT ESTIMATES");
+  alert("Results are also shown in Browser's console");
   const formData = {
     pType: "Days",
     tElapse: normalizeDays(document.getElementById('periodType').value, document.getElementById('timeToElapse').value),
@@ -70,8 +81,8 @@ const data = covid19ImpactEstimator({
   console.log("----------------------------------------------------------------------------");
   console.log(`******Total Number of Hospital Beds/Available Beds: (${result.inputData.totalHospitalBeds})/(${Math.round(result.inputData.totalHospitalBeds * 0.35)})********`);
   console.log("----------------------------------------------------------------------------");
-  console.log(` Impact-> (${Math.abs(result.impact.hospitalBedsByRequestedTime)}) Beds will be in short supply for Hopitalization in ${result.inputData.timeToElapse} days time`);
-  console.log(` Severe Impact->  (${Math.abs(result.severeImpact.hospitalBedsByRequestedTime)}) Beds will be in short supply for Hopitalization in ${result.inputData.timeToElapse} days time`);
+  console.log(` Impact-> (${result.impact.hospitalBedsByRequestedTime}) Beds will be in Excess/short supply for Hopitalization in ${result.inputData.timeToElapse} days time`);
+  console.log(` Severe Impact->  (${result.severeImpact.hospitalBedsByRequestedTime}) Beds will be in short supply for Hopitalization in ${result.inputData.timeToElapse} days time`);
 
   console.log("----------------------------------------------------------------------------");
   console.log(`******Total Number that require ICU care in ${result.inputData.timeToElapse} days time********`);
@@ -84,6 +95,9 @@ const data = covid19ImpactEstimator({
   console.log("----------------------------------------------------------------------------");
   console.log(` Impact-> ${result.impact.dollarsInFlight}`);
   console.log(` Severe Impact->  ${result.severeImpact.dollarsInFlight}`);
+
+
+  printMessage(result);
 }
 
   document.addEventListener('DOMContentLoaded', (event) => {

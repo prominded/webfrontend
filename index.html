@@ -4,19 +4,95 @@
     <meta http-equiv="content-type" content="text/html;charset=UTF-8"/>
     <title>Covid-19 Impact Assessment Estimator</title>
     <style type="text/css">
-    div{padding: 3px;}
+   
+    div{
+        padding: 3px;
+        }
+  
+ 
     .row{ 
         display:flex
         }
+    .row-header{
+        color: white;
+        background-color: #817b7b;
+        border: 1px solid #817b7b;
+        font-weight: 700;
+        font-size: 18px;
+        border:1px solid #000000;      
+        }
+      
+     .row-header-cell, .row-cell{ 
+          width:33%;
+          }
+
+          .row-cell{
+          margin-left: 5px;;
+
+          }
+      .table-row{
+        border:1px solid #000000;
+          }
+
+          .metrics{
+              font-size:16px;
+              font-weight: 500;
+              border: 1px solid #000000;
+              margin: -5px;
+          }
+
+          .lighter-black{
+              background-color: #c7bebe;
+          }
+        
+    .col-4{ 
+          width:33%;
+          background-color: thistle;
+          }
     .col-6{ 
           width:50%;
-          display: block
           }
-   
-    .col{ 
-      width:50%
+            .col-8{ 
+          width:75%;
+          }
+    label{
+              font-size: 18px;
+              color:#872445;
+          }
 
-         }
+     h1{
+          text-align: center;
+
+          }
+
+     p{
+           font-size: 20px;
+           text-align: center;
+
+          }
+       
+   input{
+       height: 20px;
+       width: 100%;
+   }
+
+   select{
+              height: 25px;
+              width: 100%;
+   }
+
+   button{
+       color:white;
+       background-color: #817b7b;
+       border: 1px solid #27030f;
+   }
+
+   button:hover{
+       color:#872445;
+       background-color: white; 
+       font-weight: 600;
+   }
+   
     </style>
     
     <script type="module" src="index.js"></script>
@@ -24,17 +100,17 @@
 <body>
     <div class="container">
         <div class="row">
-        <div class="col-6">
+        <div class="col-8">
                 <h1>Covid-19 Estimator Form</h1>
                 <p>Please enter your imput</p>
                 <form>
                     <div class="row">
-                        <div class="col">
+                        <div class="col-6">
                             <label for="Period Type">
                                 Period Type:
                             </label>
                         </div>
-                        <div class="col">
+                        <div class="col-6">
                             <select name="periodType" id="periodType" data-period-type>
                                 <option value="Days">Days</option>
                                 <option value="Weeks">Weeks</option>
@@ -46,51 +122,55 @@
                     </div>
                 
                     <div class="row">
-                        <div class="col">
+                        <div class="col-6">
                             <label for="Time To Elapse">
                                 Time To Elapse:</label>
                         </div>
-                        <div class="col">
+                        <div class="col-6">
                             <input type="text" name="timeToElapse" id="timeToElapse" data-time-to-elapse>
                         </div>
                 
                     </div>
                 
                     <div class="row">
-                        <div class="col"><label for="Reported Cases">
+                        <div class="col-6"><label for="Reported Cases">
                                 Reported Cases:</label></div>
-                        <div class="col"><input type="text" name="reportedCases" id="reportedCases" data-reported-cases>
+                        <div class="col-6"><input type="text" name="reportedCases" id="reportedCases" data-reported-cases>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col"><label for="Population">
+                        <div class="col-6"><label for="Population">
                                 Population:</label>
                         </div>
-                        <div class="col">
+                        <div class="col-6">
                             <input type="text" name="population" id="population" data-population>
                         </div>
                 
                     </div>
                 
                     <div class="row">
-                        <div class="col"><label for="Total Hospital Beds">
+                        <div class="col-6" ><label for="Total Hospital Beds">
                                 Total Hospital Beds:</label>
                         </div>
-                        <div class="col">
+                        <div class="col-6" >
                             <input type="text" name="totalHospitalBeds" id="totalHospitalBeds" data-total-hospital-beds>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col"></div>
-                        <div class="col" >
-                            <button type="button" id="impactButton" name="impactButton" data-go-estimate>Estimate Impact</button>
+                    <div class="row" style="height:40px;">
+                        <div class="col-6" ></div>
+                        <div class="col-6"  style="display:flex;" >
+                            <button style="width: 100%;" type="button" id="impactButton" name="impactButton" data-go-estimate>Estimate Impact</button>
                         </div>
                     </div>
                 </form>
         </div>
-        <div clas="col-6"></div>
+        <div class="">
         </div>
     </div>
+    <div class="row">
+        <div id="message" class="col-8"></div>
+    </div>
+    <div class=""></div>
 
 </body>
 </html>
